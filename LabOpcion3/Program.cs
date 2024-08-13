@@ -30,7 +30,7 @@ class program
                 {
                     case 1:
                         Console.Clear();
-                        int opcionCliente = 0, numeroTelefonico = 0; bool validarTelefono = false, validarDescuento = false; double descuento = 0;
+                        int opcionCliente = 0, numeroTelefonico = 0; double descuento = 0;
                         string nombreCliente = "", correoCliente = "";
                         do
                         {
@@ -47,29 +47,30 @@ class program
                                 opcionCliente = Convert.ToInt32(Console.ReadLine());
                                 if (opcionCliente == 1 || opcionCliente == 2)
                                 {
-                                mensaje.MensajeContinuar();
-                                Console.ForegroundColor = ConsoleColor.Magenta;
-                                Console.WriteLine("--------Info Cliente---------"); Console.ResetColor();
-                                Console.WriteLine(); Console.Write("Ingresa el nombre del Cliente: ");
-                                nombreCliente = Console.ReadLine();
-                                Console.Write("Ingresa el correo del cliente: ");
-                                correoCliente = Console.ReadLine();
-                                do
-                                {
-                                    Console.Write("Ingresa el número de teléfono: ");
-                                    try
+                                    Console.Clear(); bool validarTelefono = false;
+                                    Console.ForegroundColor = ConsoleColor.Magenta;
+                                    Console.WriteLine("--------Info Cliente---------"); Console.ResetColor();
+                                    Console.WriteLine(); Console.Write("Ingresa el nombre del Cliente: ");
+                                    nombreCliente = Console.ReadLine();
+                                    Console.Write("Ingresa el correo del cliente: ");
+                                    correoCliente = Console.ReadLine();
+                                    do
                                     {
-                                        numeroTelefonico = Convert.ToInt32(Console.ReadLine());
-                                        if (numeroTelefonico > 0)
+                                        Console.Write("Ingresa el número de teléfono: ");
+                                        try
                                         {
-                                            validarTelefono = true;
+                                            numeroTelefonico = Convert.ToInt32(Console.ReadLine());
+                                            if (numeroTelefonico > 0)
+                                            {
+                                                validarTelefono = true;
+                                                break;
+                                            }
                                         }
-                                    }
-                                    catch (FormatException)
-                                    {
-                                        mensaje.MensajeDeError(); Console.WriteLine();
-                                    }
-                                } while (validarTelefono == false);
+                                        catch (FormatException)
+                                        {
+                                            mensaje.MensajeDeError(); Console.WriteLine();
+                                        }
+                                    } while (validarTelefono == false);
                                 }
                                 switch (opcionCliente)
                                 {
@@ -79,10 +80,9 @@ class program
                                         mensaje.MensajeContinuar();
                                         break;
                                     case 2:
+                                        bool validarDescuento = false;
                                         do
                                         {
-                                            Console.Clear(); Console.ForegroundColor = ConsoleColor.Magenta;
-                                            Console.WriteLine("--------Cliente VIP---------"); Console.ResetColor();
                                             Console.Write("Ingresa la cantidad de porcentaje de desdcuento: %");
                                             try
                                             {
@@ -95,12 +95,12 @@ class program
                                                 }
                                                 else
                                                 {
-                                                    Console.ForegroundColor= ConsoleColor.Red;
+                                                    Console.ForegroundColor = ConsoleColor.Red;
                                                     Console.WriteLine("El descuento no puede ser menor o igual a 0"); Console.ResetColor(); Console.WriteLine();
                                                 }
                                             }
 
-                                            catch(FormatException)
+                                            catch (FormatException)
                                             {
                                                 mensaje.MensajeDeError();
                                             }
@@ -120,7 +120,7 @@ class program
                                 mensaje.MensajeDeError();
                                 mensaje.MensajeContinuar();
                             }
-                        }while(opcionCliente!=3);
+                        } while (opcionCliente != 3);
                         break;
                     case 2:
                         Console.Clear();
@@ -161,6 +161,6 @@ class program
             {
                 mensaje.MensajeDeError();
             }
-        }while(opcion != 7);
+        } while (opcion != 7);
     }
 }
