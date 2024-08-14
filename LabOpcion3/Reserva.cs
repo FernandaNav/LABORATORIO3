@@ -15,13 +15,13 @@ namespace LabOpcion3
         public List<Plato> Platos { get; set; }
         public double TotalCalculado { get; set; }
 
-        public Reserva(DateTime fecha, ICliente cliente, List<Plato> platos, double totalCalculado)
+        public Reserva(DateTime fecha, ICliente cliente, List<Plato> platos)
         {
             Fecha = fecha;
             IdReserva = ++contador; 
             Cliente = cliente;
             Platos = platos;
-            TotalCalculado = totalCalculado;
+            TotalCalculado = CalcularTotal();
         }
         public void MostrarReserva()
         {
@@ -37,6 +37,15 @@ namespace LabOpcion3
             }
             Console.WriteLine();
             Console.WriteLine($"Total de la reserva: Q{TotalCalculado}");
+        }
+        public double CalcularTotal()
+        {
+            double total = Platos.Sum(p => p.PrecioPlato);
+            if (Cliente is ClienteVip vipCliente)
+            {
+                total -= total * (vipCliente.Descuento / 100.0);
+            }
+            return total;
         }
     }
 }

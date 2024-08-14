@@ -265,10 +265,9 @@ class program
                                 {
                                     mensaje.MensajeDeError(); Console.WriteLine();
                                 }
-                                totalCalculado += precioPlatillo;
                             } while (validarPrecio == false);
                         }
-                        Reserva nuevaReserva = new Reserva(fechaHora, clienteSeleccionado, platos, totalCalculado);
+                        Reserva nuevaReserva = new Reserva(fechaHora, clienteSeleccionado, platos);
                         listaReservas.Add(nuevaReserva);
                         mensaje.MensajeContinuar();
                         break;
@@ -279,7 +278,7 @@ class program
                         }
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.WriteLine("--------Clientes---------"); Console.ResetColor(); Console.WriteLine();
+                        Console.WriteLine("-------------Clientes--------------"); Console.ResetColor(); Console.WriteLine();
                         foreach (var cliente in listaClientes)
                         {
                             cliente.MostrarInformacion(); Console.WriteLine();
@@ -291,14 +290,14 @@ class program
                         {
                             mensaje.MensajeClientes(); break;
                         }
-                        Console.Clear();
                         if (listaReservas.Count == 0)
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkGray; Console.WriteLine("Aun no hay reservas"); break;
+                            Console.ForegroundColor = ConsoleColor.DarkGray; Console.WriteLine("Aun no hay reservas"); Console.ReadKey(); Console.Clear(); break;
                         }
+                        Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.WriteLine("--------Reservas---------"); Console.ResetColor(); Console.WriteLine();
-                        foreach(var reserva in listaReservas)
+                        Console.WriteLine("-------------Reservas--------------"); Console.ResetColor(); Console.WriteLine();
+                        foreach (var reserva in listaReservas)
                         {
                             reserva.MostrarReserva(); Console.WriteLine();
                         }
@@ -309,7 +308,24 @@ class program
                         {
                             mensaje.MensajeClientes(); break;
                         }
+                        bool nombreEncontrado = false;
                         Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine("--------------------Buscar Cliente---------------------"); Console.ResetColor(); Console.WriteLine();
+                        Console.Write("Ingresa el nombre del cliente que quieres buscar: ");
+                        string buscarNombre = Console.ReadLine();
+                        foreach(var nombre in listaClientes)
+                        {
+                            if (nombre.Nombre.ToLower() == buscarNombre.ToLower())
+                            {
+                                nombre.MostrarInformacion();
+                                nombreEncontrado = true; break;
+                            }
+                        }
+                        if(nombreEncontrado == false)
+                        {
+                            Console.ForegroundColor= ConsoleColor.DarkRed; Console.WriteLine("Este nombre no existe.");
+                        }
                         mensaje.MensajeContinuar();
                         break;
                     case 6:
@@ -333,7 +349,7 @@ class program
             }
             catch (FormatException)
             {
-                mensaje.MensajeDeError();
+                mensaje.MensajeDeError(); mensaje.MensajeContinuar();
             }
         } while (opcion != 7);
     }
