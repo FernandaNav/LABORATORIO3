@@ -9,8 +9,8 @@ namespace LabOpcion3
     public class Reserva
     {
         static int contador = 0;
-        public DateTime Fecha { get; set; }
         public int IdReserva { get; set; }
+        public DateTime Fecha { get; set; }
         public ICliente Cliente { get; set; }
         public List<Plato> Platos { get; set; }
         public double TotalCalculado { get; set; }
