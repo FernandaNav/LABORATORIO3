@@ -18,7 +18,7 @@ namespace LabOpcion3
         public override void MostrarInformacion()
         {
             base.MostrarInformacion();
-            Console.WriteLine($"Porcentja de descuento: {Descuento}%");
+            Console.WriteLine($"Porcentaje de descuento: {Descuento}%");
         }
     }
 }

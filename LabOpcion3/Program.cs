@@ -217,7 +217,7 @@ class program
                             try
                             {
                                 minuto = Convert.ToInt32(Console.ReadLine());
-                                if (minuto > 0 && minuto < 60)
+                                if (minuto >= 0 && minuto < 60)
                                     validarMinuto = true;
                             }
                             catch
@@ -332,6 +332,10 @@ class program
                         if (listaClientes.Count == 0)
                         {
                             mensaje.MensajeClientes(); break;
+                        }
+                        if (listaReservas.Count == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGray; Console.WriteLine("Aun no hay reservas"); Console.ReadKey(); Console.Clear(); break;
                         }
                         bool idEncontrado = false;
                         Console.Clear();
