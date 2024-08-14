@@ -124,8 +124,8 @@ class program
                         } while (opcionCliente != 3);
                         break;
                     case 2:
-                        int numeroCliente = 0, anio = 0, mes=0, dia=0, hora=0, minuto=0; bool validarNumCliente=false; ICliente clienteSeleccionado;
-                        if (listaClientes.Count == 0)   
+                        int numeroCliente = 0, anio = 0, mes = 0, dia = 0, hora = 0, minuto = 0; bool validarNumCliente = false; ICliente clienteSeleccionado;
+                        if (listaClientes.Count == 0)
                         {
                             mensaje.MensajeClientes(); break;
                         }
@@ -167,14 +167,14 @@ class program
                             {
                                 mensaje.MensajeDeError(); Console.WriteLine();
                             }
-                        }while(validarAnio==false);
+                        } while (validarAnio == false);
                         do
                         {
                             Console.Write("Ingresa el mes: ");
                             try
                             {
                                 mes = Convert.ToInt32(Console.ReadLine());
-                                if(mes > 0 && mes <=12)
+                                if (mes > 0 && mes <= 12)
                                     validarMes = true;
                             }
                             catch
@@ -188,7 +188,7 @@ class program
                             try
                             {
                                 dia = Convert.ToInt32(Console.ReadLine());
-                                if(dia > 0 && dia <=31)
+                                if (dia > 0 && dia <= 31)
                                     validarDia = true;
                             }
                             catch
@@ -203,7 +203,7 @@ class program
                             try
                             {
                                 hora = Convert.ToInt32(Console.ReadLine());
-                                if (hora > 0 && hora<=23)
+                                if (hora > 0 && hora <= 23)
                                     validarHora = true;
                             }
                             catch
@@ -228,7 +228,7 @@ class program
                         DateTime fechaHora = new DateTime(anio, mes, dia, hora, minuto, 0); Console.WriteLine();
 
                         List<Plato> platos = new List<Plato>();
-                        bool validarPlatillo = false, validarPrecio = false; int cantidadPlatillos = 0, precioPlatillo = 0; string nombrePlatillo = "";
+                        bool validarPlatillo = false, validarPrecio = false; int cantidadPlatillos = 0, precioPlatillo = 0; string nombrePlatillo = ""; double totalCalculado = 0;
                         Console.WriteLine("--Platillos--");
                         do
                         {
@@ -243,8 +243,8 @@ class program
                             {
                                 mensaje.MensajeDeError(); Console.WriteLine();
                             }
-                        }while(validarPlatillo == false);
-                        for(int i = 1; i <= cantidadPlatillos; i++)
+                        } while (validarPlatillo == false);
+                        for (int i = 1; i <= cantidadPlatillos; i++)
                         {
                             Console.Write($"Ingresa el nombre del platillo {i}: ");
                             nombrePlatillo = Console.ReadLine();
@@ -254,7 +254,7 @@ class program
                                 try
                                 {
                                     precioPlatillo = Convert.ToInt32(Console.ReadLine());
-                                    if(precioPlatillo > 0)
+                                    if (precioPlatillo > 0)
                                     {
                                         validarPrecio = true;
                                         Plato nuevoPlato = new Plato(nombrePlatillo, precioPlatillo);
@@ -265,9 +265,10 @@ class program
                                 {
                                     mensaje.MensajeDeError(); Console.WriteLine();
                                 }
+                                totalCalculado += precioPlatillo;
                             } while (validarPrecio == false);
                         }
-                        Reserva nuevaReserva = new Reserva(fechaHora, clienteSeleccionado, platos);
+                        Reserva nuevaReserva = new Reserva(fechaHora, clienteSeleccionado, platos, totalCalculado);
                         listaReservas.Add(nuevaReserva);
                         mensaje.MensajeContinuar();
                         break;
@@ -277,6 +278,12 @@ class program
                             mensaje.MensajeClientes(); break;
                         }
                         Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine("--------Clientes---------"); Console.ResetColor(); Console.WriteLine();
+                        foreach (var cliente in listaClientes)
+                        {
+                            cliente.MostrarInformacion(); Console.WriteLine();
+                        }
                         mensaje.MensajeContinuar();
                         break;
                     case 4:
@@ -285,8 +292,16 @@ class program
                             mensaje.MensajeClientes(); break;
                         }
                         Console.Clear();
+                        if (listaReservas.Count == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGray; Console.WriteLine("Aun no hay reservas"); break;
+                        }
                         Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.WriteLine("--------Info Cliente---------"); Console.ResetColor();
+                        Console.WriteLine("--------Reservas---------"); Console.ResetColor(); Console.WriteLine();
+                        foreach(var reserva in listaReservas)
+                        {
+                            reserva.MostrarReserva(); Console.WriteLine();
+                        }
                         mensaje.MensajeContinuar();
                         break;
                     case 5:

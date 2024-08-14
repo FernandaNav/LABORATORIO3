@@ -20,7 +20,7 @@ namespace LabOpcion3
         public void MostrarPlatos()
         {
             Console.WriteLine($"Nombre del plato: {NombrePlato}");
-            Console.WriteLine($"Precio: Q");
+            Console.WriteLine($"Precio: Q{PrecioPlato}");
         }
     }
 }

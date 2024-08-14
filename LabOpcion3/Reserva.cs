@@ -13,13 +13,15 @@ namespace LabOpcion3
         public int IdReserva { get; set; }
         public ICliente Cliente { get; set; }
         public List<Plato> Platos { get; set; }
+        public double TotalCalculado { get; set; }
 
-        public Reserva(DateTime fecha, ICliente cliente, List<Plato> platos)
+        public Reserva(DateTime fecha, ICliente cliente, List<Plato> platos, double totalCalculado)
         {
             Fecha = fecha;
             IdReserva = ++contador; 
             Cliente = cliente;
             Platos = platos;
+            TotalCalculado = totalCalculado;
         }
         public void MostrarReserva()
         {
@@ -31,8 +33,10 @@ namespace LabOpcion3
             foreach(var plato in Platos)
             {
                 plato.MostrarPlatos();
-                Console.WriteLine();
+                
             }
+            Console.WriteLine();
+            Console.WriteLine($"Total de la reserva: Q{TotalCalculado}");
         }
     }
 }
