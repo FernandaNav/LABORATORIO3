@@ -313,7 +313,7 @@ class program
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         Console.WriteLine("--------------------Buscar Cliente---------------------"); Console.ResetColor(); Console.WriteLine();
                         Console.Write("Ingresa el nombre del cliente que quieres buscar: ");
-                        string buscarNombre = Console.ReadLine();
+                        string buscarNombre = Console.ReadLine(); Console.WriteLine();
                         foreach(var nombre in listaClientes)
                         {
                             if (nombre.Nombre.ToLower() == buscarNombre.ToLower())
@@ -333,7 +333,25 @@ class program
                         {
                             mensaje.MensajeClientes(); break;
                         }
+                        bool idEncontrado = false;
                         Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine("--------------------Buscar Reserva---------------------"); Console.ResetColor(); Console.WriteLine();
+                        Console.Write("Ingresa el número de reserva que quieres buscar: ");
+                        string buscarId = Console.ReadLine(); Console.WriteLine();
+                        int id = Convert.ToInt32(buscarId);
+                        foreach (var identificador in listaReservas)
+                        {
+                            if (identificador.IdReserva == id)
+                            {
+                                identificador.MostrarReserva();
+                                idEncontrado = true; break;
+                            }
+                        }
+                        if (idEncontrado == false)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed; Console.WriteLine("Número de reserva no encontrado.");
+                        }
                         mensaje.MensajeContinuar();
                         break;
                     case 7:
