@@ -25,6 +25,7 @@ namespace LabOpcion3
         {
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine($"Reserva #{IdReserva}"); Console.ResetColor();
+            Console.WriteLine($"Nombre del cliente: {Cliente.Nombre}");
             Console.WriteLine($"Fecha y hora: {Fecha}");
             Console.WriteLine("Platos en la reserva: ");
             foreach(var plato in Platos)

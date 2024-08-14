@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabOpcion3
 {
-    public class ICliente
+    public interface ICliente
     {
         string Nombre { get; set; }
         string Correo { get; set; }

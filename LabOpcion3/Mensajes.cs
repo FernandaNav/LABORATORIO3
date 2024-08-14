@@ -26,5 +26,11 @@ namespace LabOpcion3
             Console.WriteLine("Esta opción no existe"); Console.ResetColor();
             MensajeContinuar();
         }
+
+        public void MensajeClientes()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray; Console.WriteLine("Aun no existen clientes...");
+            Console.ReadKey(); Console.Clear();
+        }
     }
 }
