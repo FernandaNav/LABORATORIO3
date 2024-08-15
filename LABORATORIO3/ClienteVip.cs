@@ -19,6 +19,7 @@ namespace LABORATORIO3
         {
             base.MostrarInformacion();
             Console.WriteLine($"Porcentaje de descuento: {DescuentoVip}");
+            Console.WriteLine("Detalles extras: Cliente VIP");
         }
     }
 }

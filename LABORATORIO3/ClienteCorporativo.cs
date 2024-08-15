@@ -18,6 +18,7 @@ namespace LABORATORIO3
         {
             base.MostrarInformacion();
             Console.WriteLine($"Porcentaje de descuento: {DescuentoCorporativo}");
+            Console.WriteLine("Detalles extras: Cliente Corporativo");
         }
     }
 }

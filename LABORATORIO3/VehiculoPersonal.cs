@@ -13,5 +13,10 @@ namespace LABORATORIO3
         {
 
         }
+        public override void MostrarVehiculos()
+        {
+            base.MostrarVehiculos();
+            Console.WriteLine("Tipo de vehículo: Personal");
+        }
     }
 }

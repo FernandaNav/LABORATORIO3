@@ -37,8 +37,8 @@ namespace LABORATORIO3
             Console.WriteLine("2. Registrar vehículo");
             Console.WriteLine("3. Registrar pedido");
             Console.WriteLine("4. Mostrar clientes");
-            Console.WriteLine("5. Mostrar pedidos");
-            Console.WriteLine("6. Mostrar vehículos");
+            Console.WriteLine("5. Mostrar vehículos");
+            Console.WriteLine("6. Mostrar pedidos");
             Console.WriteLine("7. Buscar cliente");
             Console.WriteLine("8. Buscar vehículo");
             Console.WriteLine("9. Buscar pedido");

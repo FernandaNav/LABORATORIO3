@@ -1,4 +1,5 @@
 ﻿using LABORATORIO3;
+using System.Net.Http.Json;
 
 class Program
 {
@@ -68,7 +69,7 @@ class Program
                         } while (opcionCliente != 4);
                         break;
                     case 2:
-                        ICliente clienteSeleccionado; int numeroCliente = 0, matricula = 0; bool validarNumCliente = false, validarMatricula = false;
+                        ICliente clienteSeleccionado = null; int numeroCliente = 0, opcionVehiculo=0; bool validarNumCliente = false; string matricula = "", modelo = "", tipoDeCombustible = "";
                         if (listaClientes.Count == 0)
                         {
                             mensaje.NoHayClientes(); break;
@@ -77,37 +78,85 @@ class Program
                         {
                             Console.Clear();
                             Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine("----------Registrar Vehículo----------"); Console.ResetColor();
-                            Console.WriteLine("¿A nombre de quién estará el vehículo?:");
-                            for (int i = 0; i < listaClientes.Count; i++)
-                            {
-                                Console.WriteLine($"{i + 1}. {listaClientes[i].Nombre}");
-                            }
-                            Console.WriteLine(); Console.Write("Escribe el numero del cliente: ");
+                            Console.WriteLine("----------Registrar Vehículo----------"); Console.ResetColor(); Console.WriteLine();
+                            Console.WriteLine("1. Vehículo Corporativo");
+                            Console.WriteLine("2. Vehículo Personal");
+                            Console.WriteLine("3. Regresar al menú principal"); Console.WriteLine();
+                            Console.Write("Ingresa la opción: ");
                             try
                             {
-                                numeroCliente = Convert.ToInt32(Console.ReadLine());
-                                if (numeroCliente > 0 && numeroCliente <= listaClientes.Count)
+                                opcionVehiculo = Convert.ToInt32(Console.ReadLine());
+                                if(opcionVehiculo ==1||opcionVehiculo==2)
                                 {
-                                    validarNumCliente = true;
-                                    clienteSeleccionado = listaClientes[numeroCliente - 1];
+                                    mensaje.MensajeContinuar();
+                                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                                    Console.WriteLine("----------información Vehículo----------"); Console.ResetColor(); Console.WriteLine();
+                                    Console.Write("Ingresa la matricula: ");
+                                    matricula = Console.ReadLine(); Console.WriteLine();
+                                    Console.Write("Ingresa el modelo: ");
+                                    modelo = Console.ReadLine(); Console.WriteLine();
+                                    Console.Write("Ingresa el tipo de combustible: ");
+                                    tipoDeCombustible = Console.ReadLine(); Console.WriteLine();
+                                    do
+                                    {
+                                        Console.WriteLine("¿A nombre de quién estará el vehículo?:");
+                                        for (int i = 0; i < listaClientes.Count; i++)
+                                        {
+                                            Console.WriteLine($"{i + 1}. {listaClientes[i].Nombre}");
+                                        }
+                                        Console.WriteLine(); Console.Write("Escribe el numero del cliente: ");
+                                        try
+                                        {
+                                            numeroCliente = Convert.ToInt32(Console.ReadLine());
+                                            if (numeroCliente > 0 && numeroCliente <= listaClientes.Count)
+                                            {
+                                                validarNumCliente = true;
+                                                clienteSeleccionado = listaClientes[numeroCliente - 1];
+                                            }
+                                            else
+                                            {
+                                                Console.ForegroundColor= ConsoleColor.DarkRed;
+                                                Console.WriteLine("Este cliente no existe."); Console.ResetColor();
+                                            }
+                                        }
+                                        catch (FormatException) { }
+                                    } while (!validarNumCliente);
+                                }
+                                switch(opcionVehiculo)
+                                {
+                                    case 1:
+                                        if(clienteSeleccionado is ClienteCorporativo)
+                                        {
+                                            VehiculoCorporativo nuevoVehiculoCorporativo = new VehiculoCorporativo(matricula, modelo, tipoDeCombustible, clienteSeleccionado);
+                                            listaVehiculos.Add(nuevoVehiculoCorporativo); Console.ForegroundColor = ConsoleColor.Cyan;
+                                            Console.WriteLine("Vehículo corporativo registrado correctamente");
+                                        }
+                                        else if(clienteSeleccionado is ClienteRegular||clienteSeleccionado is ClienteVip)
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                                            Console.WriteLine("El cliente seleccionado no es corporativo."); Console.ResetColor();
+                                        }
+                                        mensaje.MensajeContinuar();
+                                        break;
+                                    case 2:
+                                        VehiculoPersonal nuevoVehiculoPersonal = new VehiculoPersonal(matricula, modelo, tipoDeCombustible, clienteSeleccionado);
+                                        listaVehiculos.Add(nuevoVehiculoPersonal); Console.ForegroundColor = ConsoleColor.Cyan;
+                                        Console.WriteLine("Vehículo personal registrado correctamente");
+                                        mensaje.MensajeContinuar();
+                                        break;
+                                    case 3:
+                                        Console.Clear();
+                                        break;
+                                    default:
+                                        mensaje.MensajeDefault();
+                                        break;
                                 }
                             }
-                            catch (FormatException) { }
-                        } while (!validarNumCliente); Console.WriteLine();
-                        do
-                        {
-                            Console.Write("Ingresa el número de matrícula: ");
-                            try
+                            catch
                             {
-                                matricula = Convert.ToInt32(Console.ReadLine());
+                                mensaje.MensajeDeError(); mensaje.MensajeContinuar();
                             }
-                            catch (FormatException)
-                            {
-                                mensaje.MensajeDeError();
-                            }
-                        } while (!validarMatricula);
-                        mensaje.MensajeContinuar();
+                        } while (opcionVehiculo != 3);
                         break;
                     case 3:
                         Console.Clear();
@@ -128,15 +177,21 @@ class Program
                         mensaje.MensajeContinuar();
                         break;
                     case 5:
-                        if (listaClientes.Count == 0)
+
+                        if (listaVehiculos.Count == 0)
                         {
-                            mensaje.NoHayClientes(); break;
+                            mensaje.NoHayVehiculos(); break;
                         }
                         Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("----------Mostrar Vehículos----------"); Console.ResetColor(); Console.WriteLine();
+                        foreach (var vehiculo in listaVehiculos)
+                        {
+                            vehiculo.MostrarVehiculos(); Console.WriteLine();
+                        }
                         mensaje.MensajeContinuar();
                         break;
                     case 6:
-                        Console.Clear();
                         mensaje.MensajeContinuar();
                         break;
                     case 7:
