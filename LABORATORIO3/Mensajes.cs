@@ -29,18 +29,46 @@ namespace LABORATORIO3
 
         public void Menu()
         {
-            Console.ForegroundColor= ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("-------------------------");
             Console.WriteLine("       BIENVENIDO");
             Console.WriteLine("-------------------------"); Console.ResetColor();
             Console.WriteLine("1. Registrar cliente");
             Console.WriteLine("2. Registrar vehículo");
-            Console.WriteLine("3. Registrar Pedido");
-            Console.WriteLine("4. Mostrar información");
-            Console.WriteLine("5. Buscar información");
-            Console.WriteLine("6. Salir");
+            Console.WriteLine("3. Registrar pedido");
+            Console.WriteLine("4. Mostrar clientes");
+            Console.WriteLine("5. Mostrar pedidos");
+            Console.WriteLine("6. Mostrar vehículos");
+            Console.WriteLine("7. Buscar cliente");
+            Console.WriteLine("8. Buscar vehículo");
+            Console.WriteLine("9. Buscar pedido");
+            Console.WriteLine("10. Salir");
             Console.WriteLine();
             Console.Write("Ingresa una opción: ");
+        }
+
+        public void MenuCliente()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------Registrar Cliente-------"); Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine("1. Cliente regular");
+            Console.WriteLine("2. Cliente VIP");
+            Console.WriteLine("3. Cliente Corporativo");
+            Console.WriteLine("4. Regresar a menú principal"); Console.WriteLine();
+            Console.Write("Ingresa la opción: ");
+        }
+
+        public void NoHayClientes()
+        {
+            Console.ForegroundColor= ConsoleColor.DarkGray;
+            Console.WriteLine("Aún no hay clientes..."); Console.ReadKey(); Console.Clear();
+        }
+        public void NoHayVehiculos()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("Aún no hay vehiculos..."); Console.ReadKey(); Console.Clear();
         }
 
         public void Despedida()
