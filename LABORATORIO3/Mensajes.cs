@@ -78,5 +78,15 @@ namespace LABORATORIO3
             Console.WriteLine("   Adiós Usuario :)"); Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("---------------------"); Console.ResetColor();
         }
+        public void MenuVehiculos()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("----------Registrar Vehículo----------"); Console.ResetColor(); Console.WriteLine();
+            Console.WriteLine("1. Vehículo Corporativo");
+            Console.WriteLine("2. Vehículo Personal");
+            Console.WriteLine("3. Regresar al menú principal"); Console.WriteLine();
+            Console.Write("Ingresa la opción: ");
+        }
     }
 }

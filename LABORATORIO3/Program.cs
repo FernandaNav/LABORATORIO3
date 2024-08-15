@@ -76,13 +76,7 @@ class Program
                         }
                         do
                         {
-                            Console.Clear();
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine("----------Registrar Vehículo----------"); Console.ResetColor(); Console.WriteLine();
-                            Console.WriteLine("1. Vehículo Corporativo");
-                            Console.WriteLine("2. Vehículo Personal");
-                            Console.WriteLine("3. Regresar al menú principal"); Console.WriteLine();
-                            Console.Write("Ingresa la opción: ");
+                            mensaje.MenuVehiculos();
                             try
                             {
                                 opcionVehiculo = Convert.ToInt32(Console.ReadLine());
@@ -105,21 +99,18 @@ class Program
                                             Console.WriteLine($"{i + 1}. {listaClientes[i].Nombre}");
                                         }
                                         Console.WriteLine(); Console.Write("Escribe el numero del cliente: ");
-                                        try
+                                        string entradaCliente = Console.ReadLine();
+
+                                        if (int.TryParse(entradaCliente, out numeroCliente) && numeroCliente > 0 && numeroCliente <= listaClientes.Count)
                                         {
-                                            numeroCliente = Convert.ToInt32(Console.ReadLine());
-                                            if (numeroCliente > 0 && numeroCliente <= listaClientes.Count)
-                                            {
-                                                validarNumCliente = true;
-                                                clienteSeleccionado = listaClientes[numeroCliente - 1];
-                                            }
-                                            else
-                                            {
-                                                Console.ForegroundColor= ConsoleColor.DarkRed;
-                                                Console.WriteLine("Este cliente no existe."); Console.ResetColor();
-                                            }
+                                            validarNumCliente = true;
+                                            clienteSeleccionado = listaClientes[numeroCliente - 1];
                                         }
-                                        catch (FormatException) { }
+                                        else
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                                            Console.WriteLine("Número de cliente inválido o fuera de rango."); Console.ResetColor();
+                                        }
                                     } while (!validarNumCliente);
                                 }
                                 switch(opcionVehiculo)
@@ -214,12 +205,32 @@ class Program
                         if (!nombreEncontrado)
                         {
                             Console.ForegroundColor=ConsoleColor.DarkRed;
-                            Console.WriteLine("Este cliente no existe..."); Console.ResetColor();
+                            Console.WriteLine("Cliente no encontrado..."); Console.ResetColor();
                         }
                         mensaje.MensajeContinuar();
                         break;
                     case 8:
-                        Console.Clear();
+                        if(listaVehiculos.Count == 0)
+                        {
+                            mensaje.NoHayVehiculos(); break;
+                        }
+                        Console.Clear(); bool vehiculoEncontrado=false;
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("----------Buscar Vehiculo----------"); Console.ResetColor(); Console.WriteLine();
+                        Console.Write("Ingresa la matricula del vehiculo que quieres buscar: ");
+                        string buscarMatricula = Console.ReadLine(); Console.WriteLine();
+                        foreach(var vehiculo in listaVehiculos)
+                        {
+                            if (buscarMatricula.ToLower() == vehiculo.Matricula.ToLower())
+                            {
+                                vehiculo.MostrarVehiculos(); vehiculoEncontrado = true;
+                            }
+                        }
+                        if (!vehiculoEncontrado)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("Vehiculo no encontrado..."); Console.ResetColor();
+                        }
                         mensaje.MensajeContinuar();
                         break;
                     case 9:
@@ -235,12 +246,13 @@ class Program
                         mensaje.Despedida();
                         break;
                     default:
+                        mensaje.MensajeDefault(); 
                         break;
                 }
             }
             catch (FormatException)
             {
-                //mensaje de error
+                mensaje.MensajeDeError(); mensaje.MensajeContinuar();
             }
         } while (opcion != 10);
     }
