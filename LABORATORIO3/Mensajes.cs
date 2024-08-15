@@ -70,6 +70,11 @@ namespace LABORATORIO3
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine("Aún no hay vehiculos..."); Console.ReadKey(); Console.Clear();
         }
+        public void NoHayPedidos()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("Aún no hay pedidos..."); Console.ReadKey(); Console.Clear();
+        }
 
         public void Despedida()
         {

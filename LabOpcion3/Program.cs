@@ -228,7 +228,7 @@ class program
                         DateTime fechaHora = new DateTime(anio, mes, dia, hora, minuto, 0); Console.WriteLine();
 
                         List<Plato> platos = new List<Plato>();
-                        bool validarPlatillo = false, validarPrecio = false; int cantidadPlatillos = 0, precioPlatillo = 0; string nombrePlatillo = ""; double totalCalculado = 0;
+                        bool validarPlatillo = false, validarPrecio = false; int cantidadPlatillos = 0, precioPlatillo = 0; string nombrePlatillo = "";
                         Console.WriteLine("--Platillos--");
                         do
                         {
